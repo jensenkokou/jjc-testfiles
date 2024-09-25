@@ -1,0 +1,38 @@
+#.pre-commit-config.yml
+repos:
+- repo: https://gitlab.mda.mil/gm-tma/infrastructure/pre-commit/pre-commit-terraform
+  rev: v1.92.0
+  hooks:
+    - id: terraform_fmt
+    - id: terraform_tflint
+    - id: terraform_docs
+      args:
+      - --hook-config=--use-standard-markers=true
+      - --hook-config=--create-file-if-not-exist=true
+      #- --hook-config=--path-to-file=./USAGE.md
+      - --args=--config=.my-terraform-docs.yml
+      exclude: '^example|^tools'
+
+    - id: terraform_trivy
+      args: [
+        #- --args=--skip-dirs="**/.terraform"
+        "--hook-config=--parallelism-ci-cpu-cores=2",
+        "conf --tf-varssubscription1.tfvars",
+        "./environments/subscription1/infra-prod/aks/main.tf",
+        --args=--format=json
+      ]
+        # - --args=--format=json
+        
+    - id: terrascan
+      args: [
+        #--args=--non-recursive,
+        --args=--policy-type=azure,
+        --args=--verbose,
+        "--args=-o json"
+      ]
+    - id: terraform_checkov
+      args: [
+         '--args=-d ./ ',
+        --args=-o junitxml,
+        --args=--output-file-path=results.xml
+      ]
