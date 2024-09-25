@@ -1,7 +1,7 @@
 // Resource Group Information Outputs
 
 output "resource_group_name" {
-  description = "The name of the Azure Resource Group"
+  description = " Name of Azure Resource Group"
   value       = azurerm_resource_group.mdastartup.name
 }
 
