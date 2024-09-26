@@ -172,10 +172,6 @@ variable "ssh_key_name" {
   type        = string
 }
 
-variable "key_vault_id" {
-  description = "ID of the Key Vault for VM access."
-  type        = string
-}
 
 
 
