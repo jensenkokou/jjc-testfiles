@@ -1,0 +1,68 @@
+# .pre-commit-config.yaml :)
+repos:
+  # Opinionated code formatter that supports multiple languages
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: "v4.0.0-alpha.8" # Use the latest stable version
+    hooks:
+      - id: prettier
+        # Formats YAML files for consistent styling
+        files: \.(yaml|yml)$
+        args: [--write]
+        additional_dependencies: ['prettier@3.2.5']
+        # " files were modified by this hook " - Expected response on output 
+
+
+  # A YAML formatter that preserves comments and formatting
+  - repo: https://github.com/google/yamlfmt
+    rev: v0.11.0  # Use the latest version available
+    hooks:
+      - id: yamlfmt
+        # Formats YAML files while preserving comments and some formatting choices
+        # " files were modified by this hook " - Expected response on output 
+
+  # These are collection of git hooks for various checks :)
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+        # Removes trailing whitespace at the end of lines
+      - id: end-of-file-fixer
+        # Ensures files end with a newline
+      - id: check-yaml
+        # Checks YAML files for parsing errors
+      - id: check-added-large-files
+        # Prevents giant files from being committed
+
+  # Terraform-related hooks
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: "v1.96.1"
+    hooks:
+      - id: terraform_tflint
+        # Validates all Terraform configuration files with TFLint
+      - id: terraform_validate
+        # Validates Terraform configurations
+      - id: terraform_fmt
+        # Formats Terraform files
+      - id: terraform_trivy
+        # Scans Terraform code for vulnerabilities
+      - id: terrascan
+        # Detects compliance and security violations in Terraform code
+
+  # Static code analysis tool for IAC 
+  - repo: https://github.com/bridgecrewio/checkov.git
+    rev: "3.2.254"
+    hooks:
+      - id: checkov
+        # Scans our cloud infrastructuree configurations for misconfigurations
+        files: \.(yaml|yml|tf)$
+
+# Best practices for maintaining this .pre-commit-config.yaml file :) 
+#
+# 1. Regularly update hook versions:
+#    Run 'pre-commit autoupdate' periodically to ensure you're using the latest versions of each hook.
+#
+# 2. Test after updates:
+#    After updating hook versions, run 'pre-commit run --all-files' to ensure all hooks still work as expected.
+#
+# 3. Document custom configurations:
+#    If you add custom arguments or configurations to hooks, add comments explaining their purpose.
