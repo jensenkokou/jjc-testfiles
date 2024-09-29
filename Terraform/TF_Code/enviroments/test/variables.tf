@@ -14,10 +14,10 @@ variable "vnet_name" {
 }
 
 variable "address_space" {
-  description = "ddress space for the virtual network."
+  description = "The address space for the VNet"
   type        = list(string)
+  default     = ["10.0.0.0/16"]
 }
-
 variable "dns_servers" {
   description = "DNS servers for the virtual network."
   type        = list(string)
@@ -59,10 +59,10 @@ variable "container_names" {
   type        = list(string)
 }
 
-variable "storage_subnet_id" {
-  description = "id of the subnet where the storage account is located."
-  type        = string
-}
+# variable "storage_subnet_id" {
+#   type        = string
+#   description = "The ID of the subnet where the storage account will be created"
+# }
 
 variable "managed_identity_id" {
   description = "id of the managed identity used by the storage account."
@@ -79,10 +79,10 @@ variable "pe_subnet_id" {
   type        = string
 }
 
-variable "user_assigned_identity_id" {
-  description = "iDdof the user-assigned identity for storage access."
-  type        = string
-}
+# variable "user_assigned_identity_id" {
+#   type        = string
+#   description = "The ID of the user assigned identity"
+# }
 
 variable "owners_principal_id" {
   description = "principal ID for storage account owners."
@@ -162,20 +162,8 @@ variable "image_version" {
   default     = "latest"
 }
 
-variable "disk_encryption_set_id" {
-  description = "Disk encryption set ID."
-  type        = string
-}
-
 variable "ssh_key_name" {
   description = "Name of the SSH key used for VM access."
   type        = string
 }
-
-
-
-
-
-
-
 
