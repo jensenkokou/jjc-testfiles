@@ -1,11 +1,5 @@
-resource "random_string" "resource_code" {
-  length  = 5
-  special = false
-  upper   = false
-}
-
 resource "azurerm_storage_account" "storage_account" {
-  name                              = "st${var.storage_account_name}${random_string.resource_code.result}"
+  name                              = "${var.storage_account_name}${random_string.resource_code.result}"
   resource_group_name               = var.resource_group_name
   location                          = var.location
   account_tier                      = "Standard"
@@ -97,7 +91,7 @@ resource "azurerm_storage_account_customer_managed_key" "cmk" {
   storage_account_id = azurerm_storage_account.storage_account.id
   key_vault_id       = var.key_vault_id
   key_name           = var.key_name
-  user_assigned_identity_id = var.kv_user_assigned_identity
+  #user_assigned_identity_id = var.kv_user_assigned_identity
 }
 
 # resource "azurerm_log_analytics_storage_insights" "storage_account" {
@@ -107,3 +101,4 @@ resource "azurerm_storage_account_customer_managed_key" "cmk" {
 #   storage_account_id  = azurerm_storage_account.storage_account.id
 #   storage_account_key = azurerm_storage_account_customer_managed_key.cmk.primary_access_key
 # }
+
