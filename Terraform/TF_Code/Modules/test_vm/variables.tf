@@ -55,11 +55,11 @@ variable "image_version" {
   default     = "latest"
 }
 
-variable "disk_encryption_set_id" {
+/* variable "disk_encryption_set_id" {
   description = "Disk encryption set ID."
   type        = string
 }
-
+*/
 variable "ssh_key_name" {
   description = "Name of the SSH key used for VM access."
   type        = string
@@ -82,9 +82,14 @@ variable "managed_identity_id" {
 }
 
 variable "tags" {
-    description = ".."
-     type = string
+  type    = map(string)
+  default = {
+    environment = "dev"
+    project     = "jjcproject"
+  }
+  description = "Tags to be applied to the resources."
 }
+
 
 variable "subnet_id" {
     description = "subnet id"
