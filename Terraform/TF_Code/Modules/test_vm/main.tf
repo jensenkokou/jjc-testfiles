@@ -27,6 +27,7 @@ resource "azurerm_network_interface" "vm_nic_dynamic" {
     name                          = "internal"
     subnet_id                     = var.subnet_id
     private_ip_address_allocation = "Dynamic"
+    
   }
 }
 
@@ -62,7 +63,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
-    disk_encryption_set_id = var.disk_encryption_set_id
+    #disk_encryption_set_id = var.disk_encryption_set_id (optional)
   }
 
   source_image_reference {
@@ -77,7 +78,9 @@ resource "azurerm_linux_virtual_machine" "vm" {
     identity_ids = [var.managed_identity_id]
   }
 
-  tags = var.tags
+  tags = {
+    Environment = "test"
+  }
 }
 
 output "vm_id" {
