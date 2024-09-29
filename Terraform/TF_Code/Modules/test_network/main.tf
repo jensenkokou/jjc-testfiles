@@ -179,3 +179,4 @@ resource "azurerm_subnet_route_table_association" "subnet_rt_association" {
 #   network_security_group_id = azurerm_network_security_group.nsg[each.key].id
 # }
 # }
+
